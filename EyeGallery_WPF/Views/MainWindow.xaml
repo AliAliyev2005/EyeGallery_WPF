@@ -7,20 +7,66 @@
         xmlns:user_controls="clr-namespace:EyeGallery_WPF.Views.User_Controls"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="450" Width="800">
+        MinHeight="450" MinWidth="550"
+        Icon="../Assets/Icons/burst.png"
+        Title="Eye Gallery" Height="450" Width="800">
+
+    <!-- Window Input Bindings -->
+    <Window.InputBindings>
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveCommand}"/>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding AddCommand}"/>
+    </Window.InputBindings>
+
     <DockPanel x:Name="MainDockPanel">
         <!-- Dock Menu Panel -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Add File" Command="{Binding AddCommand}"/>
+                <MenuItem Header="Add File" Command="{Binding AddCommand}" InputGestureText="Ctrl+N">
+                    <MenuItem.Icon>
+                        <Image 
+                            Source="../Assets/Icons/plus.png"
+                            Height="{Binding Header.ActualHeight, ElementName=ViewMenuItem}"
+                            Width="{Binding Header.ActualHeight, ElementName=ViewMenuItem}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save" Command="{Binding SaveCommand}" InputGestureText="Ctrl+S">
+                    <MenuItem.Icon>
+                        <Image 
+                            Source="../Assets/Icons/save-file.png"
+                            Height="{Binding Header.ActualHeight, ElementName=ViewMenuItem}"
+                            Width="{Binding Header.ActualHeight, ElementName=ViewMenuItem}" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-            <MenuItem Header="View">
-                <MenuItem Header="Tiles" Command="{Binding TilesCommand}"/>
-                <MenuItem Header="Small Icons" Command="{Binding SmallCommand}"/>
-                <MenuItem Header="Details" Command="{Binding DetailsCommand}"/>
+            <MenuItem Name="ViewMenuItem" Header="View">
+                <MenuItem Header="Tiles" Command="{Binding TilesCommand}">
+                    <MenuItem.Icon>
+                        <Image 
+                            Source="../Assets/Icons/tile.png"
+                            Height="{Binding Header.ActualHeight, ElementName=ViewMenuItem}"
+                            Width="{Binding Header.ActualHeight, ElementName=ViewMenuItem}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Small Icons" Command="{Binding SmallCommand}">
+                    <MenuItem.Icon>
+                        <Image 
+                            Source="../Assets/Icons/small.png"
+                            Height="{Binding Header.ActualHeight, ElementName=ViewMenuItem}"
+                            Width="{Binding Header.ActualHeight, ElementName=ViewMenuItem}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Details" Command="{Binding DetailsCommand}">
+                    <MenuItem.Icon>
+                        <Image 
+                            Source="../Assets/Icons/details.png"
+                            Height="{Binding Header.ActualHeight, ElementName=ViewMenuItem}"
+                            Width="{Binding Header.ActualHeight, ElementName=ViewMenuItem}" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
 
+        <!-- Main Content -->
         <ContentControl Content="{Binding MainContent}"/>
     </DockPanel>
 </Window>

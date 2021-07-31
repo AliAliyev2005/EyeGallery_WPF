@@ -3,19 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EyeGallery_WPF.Views.User_Controls" xmlns:viewmodels="clr-namespace:EyeGallery_WPF.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+             xmlns:local="clr-namespace:EyeGallery_WPF.Views.User_Controls" xmlns:viewmodels="clr-namespace:EyeGallery_WPF.ViewModels" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListBox ItemsSource="{Binding Images}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox x:Name="ListBox" Style="{StaticResource UserControlListBox2}">
+            <!-- List Box Item Template -->
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding Source}" Width="75" Height="75" Stretch="Fill"/>
-                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="15" FontSize="16"/>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="15" FontSize="18"/>
+                        <StackPanel.InputBindings>
+                                <MouseBinding
+                                MouseAction="LeftDoubleClick"
+                                Command="{Binding Path=DataContext.DoubleClickCommand,
+                                            RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor} }"
+                                CommandParameter="{Binding ElementName=ListBox}"/>
+                        </StackPanel.InputBindings>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding DoubleClickCommand}" CommandParameter="{Binding ElementName=ListBox}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </ListBox>
     </Grid>
 </UserControl>

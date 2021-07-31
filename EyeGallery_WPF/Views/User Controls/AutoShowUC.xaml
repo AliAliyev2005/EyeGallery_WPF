@@ -6,7 +6,77 @@
              xmlns:local="clr-namespace:EyeGallery_WPF.Views.User_Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="DeepPink">
-            
+    <Grid>
+        <!-- Gradient Background -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#1b7ced" Offset="0.2"/>
+                <GradientStop Color="DeepSkyBlue" Offset="1.2"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Row Definitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Column Definitions -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Back Button -->
+        <Button 
+            x:Name="Back" 
+            ToolTip="Back" 
+            Width="30" 
+            Height="30" 
+            Style="{StaticResource ButtonStyle}"
+            Command="{Binding TilesCommand}">
+            <Image Source="../../Assets/Icons/close.png"/>
+        </Button>
+
+        <!-- Auto Show Toggle Button -->
+        <ToggleButton 
+            x:Name="Play" 
+            ToolTip="Auto Show" 
+            Grid.Row="0" Grid.Column="1" 
+            Width="50" 
+            Height="50" 
+            Style="{StaticResource iPhoneToggleButton}"
+            Command="{Binding ShowCommand}" 
+            CommandParameter="{Binding IsChecked,RelativeSource={RelativeSource Self}}"/>
+
+        <!-- Next Button -->
+        <Button 
+            x:Name="Next" 
+            ToolTip="Next" 
+            Grid.Row="1" 
+            Grid.Column="2" 
+            Style="{StaticResource ButtonStyle}"
+            Command="{Binding NextCommand}">
+            <Image Source="../../Assets/Icons/next.png"/>
+        </Button>
+
+        <!-- Previous Button -->
+        <Button 
+            x:Name="Previous" 
+            ToolTip="Previous" 
+            Grid.Row="1" 
+            Grid.Column="0"
+            Style="{StaticResource ButtonStyle}"
+            Command="{Binding PreviousCommand}">
+            <Image Source="../../Assets/Icons/previous.png"/>
+        </Button>
+
+        <!-- Auto Show Image -->
+        <Image 
+            Source="{Binding ImageNow}" 
+            Grid.Row="1" 
+            Grid.Column="1" 
+            Margin="10"/>
     </Grid>
 </UserControl>

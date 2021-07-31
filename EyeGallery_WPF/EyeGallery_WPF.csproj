@@ -95,6 +95,18 @@
     <Compile Include="Views\User Controls\TilesUC.xaml.cs">
       <DependentUpon>TilesUC.xaml</DependentUpon>
     </Compile>
+    <Page Include="Styles\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ListBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ToggleButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -161,6 +173,33 @@
     <Resource Include="Assets\DefaultImages\walle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\burst.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\details.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\tile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\save-file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\plus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
