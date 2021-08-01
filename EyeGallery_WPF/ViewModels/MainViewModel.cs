@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System;
+using System.Windows;
+using System.Windows.Media;
 
 namespace EyeGallery_WPF.ViewModels
 {
@@ -26,6 +28,7 @@ namespace EyeGallery_WPF.ViewModels
         public RelayCommand PreviousCommand { get; set; }
         public RelayCommand<bool> ShowCommand { get; set; }
         public RelayCommand<ListBox> DoubleClickCommand { get; set; }
+        public RelayCommand<DragEventArgs> LoadCommand { get; set; }
 
         /// <summary>
         /// User Control for Main Window
@@ -73,7 +76,7 @@ namespace EyeGallery_WPF.ViewModels
             // ObservableCollection Images for showing in folder 
             Images = new ObservableCollection<Models.Image>();
             Images = File.ReadJSON("images.json");
-            
+
             // Default show images in TilesUC UserControl
             MainContent = new TilesUC();
 
@@ -88,7 +91,7 @@ namespace EyeGallery_WPF.ViewModels
 
             // Saves newly added image 
             SaveCommand = new RelayCommand(() => { File.WriteJSON(Images, "images.json"); });
-            
+
             // Opens dialog for add new image
             AddCommand = new RelayCommand(AddImage);
 
@@ -110,6 +113,8 @@ namespace EyeGallery_WPF.ViewModels
                 Interval = TimeSpan.FromSeconds(3)
             };
             Timer.Tick += (sender, args) => { NextClick(); };
+
+            LoadCommand = new RelayCommand<DragEventArgs>(Load);
         }
 
         /// <summary>
@@ -148,7 +153,7 @@ namespace EyeGallery_WPF.ViewModels
         /// </summary>
         public void NextClick()
         {
-            if (ImageIndex < Images.Count-1) ImageNow = Images[++ImageIndex].Source;
+            if (ImageIndex < Images.Count - 1) ImageNow = Images[++ImageIndex].Source;
             else
             {
                 ImageIndex = 0;
@@ -177,6 +182,23 @@ namespace EyeGallery_WPF.ViewModels
         {
             if (isChecked) Timer.Start();
             else Timer.Stop();
+        }
+
+
+        /// <summary>
+        /// Drag / Drop function for add image to Collection
+        /// </summary>
+        /// <param name="args"></param>
+        public void Load(DragEventArgs args)
+        {
+            if (args.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                foreach (var source in (string[])args.Data.GetData(DataFormats.FileDrop))
+                {
+                    if (source.EndsWith(".png") || source.EndsWith(".jpg") || source.EndsWith(".jpeg"))
+                        Images.Add(new Models.Image(source.Split('\\').Last(), source));
+                }
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

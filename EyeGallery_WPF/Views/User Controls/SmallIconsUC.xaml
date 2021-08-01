@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EyeGallery_WPF.Views.User_Controls" xmlns:viewmodels="clr-namespace:EyeGallery_WPF.ViewModels" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+             xmlns:local="clr-namespace:EyeGallery_WPF.Views.User_Controls" xmlns:viewmodels="clr-namespace:EyeGallery_WPF.ViewModels" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform.Net45" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -24,8 +24,8 @@
             </ListBox.ItemTemplate>
 
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding DoubleClickCommand}" CommandParameter="{Binding ElementName=ListBox}" />
+                <i:EventTrigger EventName="Drop">
+                    <command:EventToCommand Command="{Binding LoadCommand}" PassEventArgsToCommand="True"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
